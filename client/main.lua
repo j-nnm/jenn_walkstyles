@@ -143,9 +143,12 @@ end
 
 local function restoreWalkStyle()
     if not isLoaded then return end
-    Wait(500)
+    Wait(5000)
     
     local saved = loadStyle()
+    if saved and saved ~= "" then
+        setWalkStyle(saved, false)
+    end
 end
 
 local function openMenu()
@@ -192,6 +195,7 @@ end
 RegisterNetEvent('vorp:SelectedCharacter', function(charId)
     currentCharId = charId
     isLoaded = true
+    Wait(7000) 
     CreateThread(restoreWalkStyle)
 end)
 
@@ -288,6 +292,6 @@ CreateThread(function()
     end
     
     isLoaded = true
-    Wait(500)
+    Wait(3000)
     restoreWalkStyle()
 end)
