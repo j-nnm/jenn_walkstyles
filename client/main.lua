@@ -243,26 +243,6 @@ RegisterCommand('setwalk', function(_, args)
     notify("Walk style set to: " .. ws.name, 3000)
 end, false)
 
-RegisterCommand('checkwalk', function()
-    local saved = loadStyle()
-    local key = getKvpKey()
-    
-    if saved and saved ~= "" then
-        notify("Saved: " .. saved, 6000)
-    else
-        notify("No walk style saved", 4000)
-    end
-    
-    print(("KVP Key: %s | Saved: %s | Current: %s | CharId: %s | PerChar: %s | Loaded: %s"):format(
-        key,
-        tostring(saved or "none"),
-        tostring(currentStyle or "none"),
-        tostring(currentCharId or "shared"),
-        tostring(Config.PerCharacter),
-        tostring(isLoaded)
-    ))
-end, false)
-
 TriggerEvent('chat:addSuggestion', '/' .. Config.Command, Config.CommandHelp)
 TriggerEvent('chat:addSuggestion', '/' .. Config.ResetCommand, Config.ResetCommandHelp)
 TriggerEvent('chat:addSuggestion', '/setwalk', 'Set walk style by number', {{ name = "number", help = "Walk style number" }})
