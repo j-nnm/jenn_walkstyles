@@ -67,11 +67,11 @@ local function loadStyle()
 end
 
 local function setMovementClipset(ped, clipset)
-    Citizen.InvokeNative(0xCB9401F918CB0F75, ped, clipset, 1, -1)
+    SetPedBlackboardBool(ped, clipset, 1, -1)
 end
 
 local function removeMovementClipset(ped, clipset)
-    Citizen.InvokeNative(0xA6F67BEC53379A32, ped, clipset)
+    RemovePedBlackboardBool(ped)
 end
 
 local function applyStyle(ped, style)
@@ -79,14 +79,14 @@ local function applyStyle(ped, style)
     
     if not style or style == "" or style == "default" then
         if currentStyle and currentStyle ~= "" then
-            removeMovementClipset(ped, currentStyle)
+            removeMovementClipset(ped)
         end
-        removeMovementClipset(ped, "MP_Style_Casual")
+        removeMovementClipset(ped)
         return true
     end
     
     if currentStyle and currentStyle ~= "" and currentStyle ~= style then
-        removeMovementClipset(ped, currentStyle)
+        removeMovementClipset(ped)
     end
     
     setMovementClipset(ped, style)
@@ -110,7 +110,7 @@ AddStateBagChangeHandler("walkStyle", nil, function(bagName, _, value)
     if value and value ~= "" and value ~= "default" then
         setMovementClipset(ped, value)
     else
-        removeMovementClipset(ped, "MP_Style_Casual")
+        removeMovementClipset(ped)
     end
 end)
 
@@ -129,9 +129,9 @@ end
 local function resetWalkStyle()
     local ped = PlayerPedId()
     if currentStyle and currentStyle ~= "" then
-        removeMovementClipset(ped, currentStyle)
+        removeMovementClipset(ped)
     end
-    removeMovementClipset(ped, "MP_Style_Casual")
+    removeMovementClipset(ped)
     saveStyle(nil)
     setStatebag(nil)
     currentStyle = nil
