@@ -70,7 +70,7 @@ local function setMovementClipset(ped, clipset)
     SetPedBlackboardBool(ped, clipset, 1, -1)
 end
 
-local function removeMovementClipset(ped, clipset)
+local function removeMovementClipset(ped)
     RemovePedBlackboardBool(ped)
 end
 
